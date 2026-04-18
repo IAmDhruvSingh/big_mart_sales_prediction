@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: "### Help us understand your feature idea! 💡"
-  
+
   - type: textarea
     id: problem
     attributes:
@@ -17,7 +17,7 @@ body:
         It would be helpful to...
     validations:
       required: true
-  
+
   - type: textarea
     id: solution
     attributes:
@@ -30,7 +30,7 @@ body:
         - Expected behavior:
     validations:
       required: true
-  
+
   - type: textarea
     id: alternatives
     attributes:
@@ -39,7 +39,7 @@ body:
       placeholder: "We could also consider..."
     validations:
       required: false
-  
+
   - type: dropdown
     id: priority
     attributes:

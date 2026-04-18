@@ -5,6 +5,7 @@ Thank you for your interest in contributing to this project! We welcome contribu
 ## How to Contribute
 
 ### Reporting Bugs
+
 1. **Check existing issues** - Search to see if the bug has already been reported
 2. **Use the Bug Report template** - Click "New issue" and select the bug template
 3. **Provide detailed information:**
@@ -15,6 +16,7 @@ Thank you for your interest in contributing to this project! We welcome contribu
    - Operating system
 
 ### Requesting Features
+
 1. **Use the Feature Request template** - Clearly describe the use case
 2. **Explain the problem being solved**
 3. **Suggest alternatives** you've considered
@@ -23,12 +25,14 @@ Thank you for your interest in contributing to this project! We welcome contribu
 ### Making Code Changes
 
 #### 1. Fork and Clone
+
 ```bash
 git clone https://github.com/YOUR_USERNAME/big_mart_sales_prediction.git
 cd big_mart_sales_prediction
 ```
 
 #### 2. Create a Virtual Environment
+
 ```bash
 python -m venv .venv
 # On Windows:
@@ -38,12 +42,14 @@ source .venv/bin/activate
 ```
 
 #### 3. Install Development Dependencies
+
 ```bash
 pip install -r requirements.txt
 pip install flake8 mypy pytest pytest-cov
 ```
 
 #### 4. Create a Feature Branch
+
 ```bash
 git checkout -b feature/your-feature-name
 # or
@@ -53,6 +59,7 @@ git checkout -b docs/documentation-update
 ```
 
 #### 5. Make Your Changes
+
 - Follow the project code style (PEP 8)
 - Add docstrings to functions and classes
 - Update comments if logic changes
@@ -60,6 +67,7 @@ git checkout -b docs/documentation-update
 - Update `requirements.txt` if adding dependencies
 
 #### 6. Run Quality Checks Locally
+
 ```bash
 # Format code
 black src/ --line-length 100
@@ -75,7 +83,9 @@ pytest tests/ -v --cov=src
 ```
 
 #### 7. Validate the Pipeline
+
 Test that your changes don't break the full workflow:
+
 ```bash
 # Test data processing
 python -c "from src.data_processing import *; print('✓ Data processing valid')"
@@ -88,6 +98,7 @@ python src/predict.py
 ```
 
 #### 8. Commit with Clear Messages
+
 ```bash
 git add .
 git commit -m "feat: add new feature description"
@@ -98,6 +109,7 @@ git commit -m "docs: update README with new examples"
 ```
 
 **Commit message prefixes:**
+
 - `feat:` - New feature
 - `fix:` - Bug fix
 - `docs:` - Documentation updates
@@ -107,11 +119,13 @@ git commit -m "docs: update README with new examples"
 - `chore:` - Build, dependencies, etc.
 
 #### 9. Push and Open a Pull Request
+
 ```bash
 git push origin feature/your-feature-name
 ```
 
 Then on GitHub:
+
 1. Open a Pull Request from your branch to `main`
 2. Fill out the PR template completely
 3. Ensure CI checks pass
@@ -120,6 +134,7 @@ Then on GitHub:
 ## Code Style Guide
 
 ### Python Standards
+
 - Follow **PEP 8** - Use tools like `black` and `flake8`
 - **Line length:** Max 100 characters
 - **Naming:**
@@ -128,24 +143,27 @@ Then on GitHub:
   - Constants: `UPPER_SNAKE_CASE`
 
 ### Documentation
+
 - Add docstrings to all functions and classes (Google style):
   ```python
   def load_data(filepath: str) -> pd.DataFrame:
       """Load and validate training data.
-      
+
       Args:
           filepath: Path to the CSV file
-          
+
       Returns:
           DataFrame containing the loaded data
-          
+
       Raises:
           FileNotFoundError: If filepath doesn't exist
       """
   ```
 
 ### Project Structure
+
 Keep code organized:
+
 - `src/data_processing.py` - Data loading and preprocessing
 - `src/features.py` - Feature engineering
 - `src/model.py` - Model training and evaluation
@@ -182,6 +200,7 @@ Keep code organized:
 ## Development Tips
 
 ### Running the Full Pipeline
+
 ```bash
 # Preprocess data
 python src/data_processing.py
@@ -194,12 +213,14 @@ python src/predict.py
 ```
 
 ### Debugging
+
 - Add print statements or use `pdb`
 - Use Jupyter notebooks for interactive exploration
 - Check logs for error messages
 - Test with sample data first
 
 ### Performance Considerations
+
 - Profile code with large datasets
 - Document performance impacts in PR
 - Consider memory usage for big data
@@ -220,6 +241,7 @@ python src/predict.py
 ## Recognition
 
 Contributors will be acknowledged in:
+
 - Project README
 - Release notes for features/fixes
 - GitHub contributors page
