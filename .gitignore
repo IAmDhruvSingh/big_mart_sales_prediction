@@ -40,29 +40,7 @@ Thumbs.db
 
 # Typescript build outputs
 *.tsbuildinfo
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
-node_modules
+
+# Python directories
+venv/
+__pycache__/
