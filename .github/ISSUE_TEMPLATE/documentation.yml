@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: "### Help us improve our documentation! 📝"
-  
+
   - type: textarea
     id: issue
     attributes:
@@ -17,7 +17,7 @@ body:
         Missing documentation on how to...
     validations:
       required: true
-  
+
   - type: textarea
     id: suggestion
     attributes:
@@ -26,7 +26,7 @@ body:
       placeholder: "We should add... or clarify..."
     validations:
       required: true
-  
+
   - type: textarea
     id: context
     attributes:

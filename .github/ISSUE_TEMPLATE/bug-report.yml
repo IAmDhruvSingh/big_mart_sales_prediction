@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         Thank you for reporting a bug! Please provide detailed information to help us reproduce and fix it.
-  
+
   - type: textarea
     id: description
     attributes:
@@ -16,7 +16,7 @@ body:
       placeholder: "What went wrong?"
     validations:
       required: true
-  
+
   - type: textarea
     id: steps
     attributes:
@@ -28,7 +28,7 @@ body:
         3. Call the prediction with...
     validations:
       required: true
-  
+
   - type: textarea
     id: expected
     attributes:
@@ -36,7 +36,7 @@ body:
       placeholder: "What should happen?"
     validations:
       required: true
-  
+
   - type: textarea
     id: actual
     attributes:
@@ -44,7 +44,7 @@ body:
       placeholder: "What actually happened?"
     validations:
       required: true
-  
+
   - type: textarea
     id: environment
     attributes:
@@ -56,7 +56,7 @@ body:
         - Key dependencies: pandas, scikit-learn versions
     validations:
       required: false
-  
+
   - type: textarea
     id: logs
     attributes:
