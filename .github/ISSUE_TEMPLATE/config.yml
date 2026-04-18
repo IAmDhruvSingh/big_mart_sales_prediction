@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 README & Documentation
+    url: https://github.com/YOUR_ORG/big_mart_sales_prediction/blob/main/README.md
+    about: Review the main documentation and setup guide
+  - name: 💬 Discussions
+    url: https://github.com/YOUR_ORG/big_mart_sales_prediction/discussions
+    about: Ask questions and discuss ideas
