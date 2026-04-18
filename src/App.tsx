@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine
 } from "recharts";
 
 type FormState = {
@@ -86,7 +86,7 @@ function solveLinearSystem(A: number[][], b: number[]): number[] {
 }
 
 interface ModelData {
-  prediction: (formValues: FormState) => number;
+  prediction: (formValues: FormState) => { sales: number; drivers: { name: string; weight: number }[] };
   metrics: { rmse: number; r2: number; trainCount: number; valCount: number };
   featureImportance: { name: string; weight: number }[];
   validationGraphInfo: { name: string; Actual: number; Predicted: number }[];
@@ -97,6 +97,7 @@ export default function App() {
 
   const [form, setForm] = useState<FormState>(emptyForm);
   const [predictedSales, setPredictedSales] = useState<number | null>(null);
+  const [currentDrivers, setCurrentDrivers] = useState<{ name: string; weight: number }[] | null>(null);
   const [isPredicting, setIsPredicting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isTraining, setIsTraining] = useState(false);
@@ -236,10 +237,17 @@ export default function App() {
         const prediction = (formStateRow: FormState) => {
           const f = extractFeatures(formStateRow);
           let pred = 0;
+          const drivers: { name: string; weight: number }[] = [];
+          
           for(let i=0; i<numFeatures; i++) {
-            pred += beta[i] * f[i];
+            const val = beta[i] * f[i];
+            pred += val;
+            if (i > 0 && f[i] !== 0) {
+              drivers.push({ name: featureNames[i], weight: val });
+            }
           }
-          return Math.max(0, pred);
+          drivers.sort((a, b) => Math.abs(b.weight) - Math.abs(a.weight));
+          return { sales: Math.max(0, pred), drivers: drivers.slice(0, 6) };
         };
 
         // Calculate metrics on Validation Set
@@ -308,8 +316,9 @@ export default function App() {
     setErrorMessage(null);
 
     try {
-      const prediction = model.prediction(form);
-      setPredictedSales(prediction);
+      const result = model.prediction(form);
+      setPredictedSales(result.sales);
+      setCurrentDrivers(result.drivers);
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "Prediction failed");
     } finally {
@@ -621,12 +630,14 @@ export default function App() {
             )}
 
             {model && (
-              <div className="rounded-xl border border-slate-700/80 bg-slate-900/70 p-6">
-                <p className="text-xs tracking-[0.2em] text-cyan-200">TOP 6 FEATURES</p>
+              <div className="rounded-xl border border-slate-700/80 bg-slate-900/70 p-6 transition-all duration-500">
+                <p className="text-xs tracking-[0.2em] text-cyan-200">
+                  {currentDrivers ? "CURRENT PREDICTION DRIVERS" : "GLOBAL TOP 6 FEATURES"}
+                </p>
                 <div className="mt-4 space-y-4">
-                  {model.featureImportance.map((feat, idx) => {
-                     // Normalize weight for bar width visually
-                     const maxWeight = Math.abs(model.featureImportance[0].weight) || 1;
+                  {(currentDrivers || model.featureImportance).map((feat, idx) => {
+                     const sourceSet = currentDrivers || model.featureImportance;
+                     const maxWeight = Math.abs(sourceSet[0].weight) || 1;
                      const width = Math.max(8, (Math.abs(feat.weight) / maxWeight) * 100);
                      
                      return (
@@ -639,7 +650,7 @@ export default function App() {
                          </div>
                          <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
                            <div 
-                             className={`h-full ${feat.weight > 0 ? "bg-cyan-400" : "bg-rose-500"}`} 
+                             className={`h-full transition-all duration-700 ease-out ${feat.weight > 0 ? "bg-cyan-400" : "bg-rose-500"}`} 
                              style={{ width: `${width}%` }} 
                            />
                          </div>
@@ -717,8 +728,24 @@ export default function App() {
                     strokeDasharray="5 5" 
                     dot={false} 
                     activeDot={{ r: 6, fill: "#cbd5e1", stroke: "#020617", strokeWidth: 2 }} 
-                    name="Predicted Sales (INR)" 
+                    name="Model Validation Prediction" 
                   />
+                  {predictedSales !== null && (
+                    <ReferenceLine 
+                      y={predictedSales} 
+                      stroke="#f59e0b" 
+                      strokeWidth={2}
+                      strokeDasharray="4 4" 
+                      label={{ 
+                        position: 'insideBottomLeft', 
+                        value: 'Your Current Prediction ₹' + predictedSales.toFixed(2), 
+                        fill: '#fcd34d', 
+                        fontSize: 13,
+                        fontWeight: 600,
+                        offset: 10
+                      }} 
+                    />
+                  )}
                 </LineChart>
               </ResponsiveContainer>
             </div>
