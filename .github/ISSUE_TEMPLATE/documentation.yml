@@ -1,0 +1,36 @@
+name: 📖 Documentation Improvement
+description: Suggest improvements or fixes to documentation
+assignees: []
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: "### Help us improve our documentation! 📝"
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: Documentation Issue
+      description: What's unclear, missing, or incorrect?
+      placeholder: |
+        The feature_engineering section is unclear about...
+        Missing documentation on how to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Improvement
+      description: How should this be documented?
+      placeholder: "We should add... or clarify..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Links, examples, or other relevant info
+    validations:
+      required: false
